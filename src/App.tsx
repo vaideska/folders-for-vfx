@@ -1,12 +1,20 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import { Box, Button, ButtonGroup } from '@mui/material';
+import FolderList from './components/FolderList';
 
 
 function App() {
   return (
-    <Container>
-      work!
+    <Container disableGutters={true}>
+      <Box sx={{
+        width: '250px',
+        height: '100vh',
+        borderRight: '1px solid grey'
+      }}>
+        <FolderList />
+
+      </Box>
     </Container>
   );
 }

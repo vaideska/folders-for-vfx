@@ -20,50 +20,18 @@ let theme = createTheme({
     },
   },
 
-  palette: {
-    black: {
-      main: '#F5F5F5',
-      contrastText: '#E2E2E2',
-    },
-    primary: {
-      main: '#252525',
-      contrastText: '#CECECE'
-    },
-    secondary: {
-      main: '#252525',
-    },
-  },
-
   components: {
     MuiContainer: {
       styleOverrides: {
         root: {
-          background: 'black',
           height: '100vh',
-          color: '#CECECE',
+          padding: 0,
+          boxSizing: 'border-box'
         },
       },
     },
   },
 });
 
-theme = responsiveFontSizes(theme, {
-  factor: 3,
-  breakpoints: ['sm'],
-});
-
-theme.typography.body1 = {
-  fontSize: '0.85rem',
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '1.2rem',
-  },
-};
-
-theme.typography.body2 = {
-  fontSize: '0.75rem',
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '0.9rem',
-  },
-};
 
 export { theme };
