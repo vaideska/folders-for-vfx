@@ -1,23 +1,19 @@
 import { createTheme, responsiveFontSizes } from '@mui/material';
 
-declare module '@mui/material/styles' {
-  interface Palette {
-    black: Palette['primary'];
-  }
-  interface PaletteOptions {
-    black: PaletteOptions['primary'];
-  }
-}
-
 let theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1328,
-      xl: 1536,
+  typography: {
+    // In Chinese and Japanese the characters are usually larger,
+    // so a smaller fontsize may be appropriate.
+    fontSize: 12,
+  },
+
+  palette: {
+    primary: {
+      main: '#CECECE',
     },
+    secondary: {
+      main: '#B7B7B7'
+    }
   },
 
   components: {
@@ -26,7 +22,8 @@ let theme = createTheme({
         root: {
           height: '100vh',
           padding: 0,
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          background: '#202020',
         },
       },
     },

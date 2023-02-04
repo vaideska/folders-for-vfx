@@ -32,19 +32,19 @@ const ShotComponent = memo(({ shot, setActiveId, activeId }: ShotComponentProps)
 
 
   return (
-    <ListItemButton sx={{ pl: 4 }} onClick={handleOpenClick}>
+    <ListItemButton sx={{ pl: 7, pr: 2, height: '26px', mt: '2px', borderRight: activeId === shot.id ? '1px solid #FFB800' : '0px' }} color='primary' onClick={handleOpenClick}>
     <DeleteShotDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} deleteShot={deleteShot}/>
-      <MovieIcon />
-      <ListItemText primary={shot.name} />
+      <MovieIcon sx={{width: '15px', mr: '7px', color: '#FFEBB7'}} />
+      <ListItemText primary={shot.name} primaryTypographyProps={{ color: 'primary'}}/>
       {activeId === shot.id && 
         <>
           <IconButton
             aria-label="delete"
             color="primary"
-            sx={{height: 8}}
+            sx={{padding: 0}}
             onClick={handleOpenDeleteDialogClick}
           >
-            <DeleteIcon />
+            <DeleteIcon sx={{width: '11px'}} />
           </IconButton>
         </>
       }

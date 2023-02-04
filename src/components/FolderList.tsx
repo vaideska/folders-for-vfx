@@ -12,7 +12,7 @@ const FolderList = observer(() => {
 
   return (
     <List
-      sx={{ width: '100%' }}
+      sx={{ width: '100%', pt: '19px' }}
       component="nav"
     >
       {foldersStore.level1.map(folder => {
@@ -26,24 +26,24 @@ const FolderList = observer(() => {
           >
             {foldersStore.getLevelChild(folder.id).map(innerFolder => {
               return (
-                <Box key={innerFolder.id} sx={{paddingLeft: '20px'}}>
                   <FolderComponent
+                    key={innerFolder.id}
                     folder={innerFolder} 
                     parentId={innerFolder.id} 
                     activeId={activeId} 
                     setActiveId={setActiveId}
                   >
-                    {foldersStore.getLevelChild(innerFolder.id).map(shot => 
-                    <Box key={shot.id} sx={{paddingLeft: '20px'}}>
-                      <ShotComponent
-                        shot={shot}
-                        activeId={activeId}
-                        setActiveId={setActiveId}
-                      />
+                    <Box sx={{mt: '5px'}}>
+                      {foldersStore.getLevelChild(innerFolder.id).map(shot => 
+                        <ShotComponent
+                          key={shot.id}
+                          shot={shot}
+                          activeId={activeId}
+                          setActiveId={setActiveId}
+                        />
+                      )}
                     </Box>
-                    )}
                   </FolderComponent>
-                </Box>
             )})}
           </FolderComponent>
       )})}

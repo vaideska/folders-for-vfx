@@ -16,7 +16,7 @@ import AddShotDialog from './AddShotDialog';
 import DeleteShotDialog from './DeleteShotDialog';
 
 import { IFolder } from '../types/types';
-
+import { Box } from '@mui/material';
 
 type FolderComponentProps = {
   folder: IFolder;
@@ -69,39 +69,39 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
   }
 
   return (
-    <>
+    <Box>
       <AddShotDialog open={openAddDialog} setOpen={setOpenAddDialog} addShot={addShot} />
       <DeleteShotDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} deleteShot={deleteShot}/>
-      <ListItemButton onClick={handleActiveClick}>
+      <ListItemButton onClick={handleActiveClick} sx={{height: '26px',  pl: folder.parentId ? 2 : 0, pr: 2, borderRight: activeId === folder.id ? '1px solid #FFB800' : '0px', background: activeId === folder.id ? '#2E2E2E' : null }}>
         {open
           ? 
-          <IconButton aria-label="close" color="primary" sx={{height: 8}} onClick={handleToggleFolderClick}>
-            <KeyboardArrowDownIcon />
+          <IconButton sx={{pr: '3px' }} aria-label="close" color="secondary" onClick={handleToggleFolderClick}>
+            <KeyboardArrowDownIcon  sx={{width: '11px'}} />
           </IconButton>
           :
-          <IconButton aria-label="open" color="primary" sx={{height: 8}} onClick={handleToggleFolderClick}>
-            <KeyboardArrowRightIcon />
+          <IconButton sx={{pr: '3px' }} aria-label="open" color="secondary" onClick={handleToggleFolderClick}>
+            <KeyboardArrowRightIcon sx={{width: '11px'}}  />
           </IconButton>
           }
-        <FolderIcon />
-        <ListItemText primary={folder.name} />
+        <FolderIcon sx={{width: '15px', mr: '7px', color: '#FFEBB7'}} />
+        <ListItemText primary={folder.name} primaryTypographyProps={{ color: 'primary'}} />
           {activeId === folder.id && 
             <>
               <IconButton
                 aria-label="add"
-                color="primary"
-                sx={{height: 8}}
+                color="secondary"
+                sx={{pr: '9px'}}
                 onClick={handleOpenAddDialogClick}
               >
-                <AddBoxIcon />
+                <AddBoxIcon sx={{width: '11px'}} />
               </IconButton>
               <IconButton
                 aria-label="delete"
-                color="primary"
-                sx={{height: 8}}
+                color="secondary"
+                sx={{padding: 0}}
                 onClick={handleOpenDeleteDialogClick}
               >
-                <DeleteIcon />
+                <DeleteIcon sx={{width: '11px'}}  />
               </IconButton>
             </>
           }
@@ -111,7 +111,7 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
             {children}
           </List>
         </Collapse>
-    </>
+    </Box>
   );
 };
 
