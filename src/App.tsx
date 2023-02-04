@@ -9,8 +9,11 @@ function App() {
     <Container disableGutters={true}>
       <Box sx={{
         width: '249px',
-        height: '100vh',
-        background: '#252525'
+        height: '100%',
+        minHeight: '100vh',
+        background: '#252525',
+        position: 'fixed',
+        overflowY: 'auto',
       }}>
         <FolderList />
 

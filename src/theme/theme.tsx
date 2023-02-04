@@ -20,8 +20,11 @@ let theme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: {
-          height: '100vh',
+          minHeight: '100vh',
+          height: '100%',
+          width: '100%',
           padding: 0,
+          margin: 0,
           boxSizing: 'border-box',
           background: '#202020',
         },

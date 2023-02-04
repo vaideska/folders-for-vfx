@@ -19,6 +19,7 @@ const ShotComponent = memo(({ shot, setActiveId, activeId }: ShotComponentProps)
 
   const deleteShot = () => {
     foldersStore.removeFolder(shot);
+    setActiveId(null);
   }
 
   const handleOpenDeleteDialogClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,10 +33,10 @@ const ShotComponent = memo(({ shot, setActiveId, activeId }: ShotComponentProps)
 
 
   return (
-    <ListItemButton sx={{ pl: 7, pr: 2, height: '26px', mt: '2px', borderRight: activeId === shot.id ? '1px solid #FFB800' : '0px' }} color='primary' onClick={handleOpenClick}>
+    <ListItemButton sx={{ pl: 7, pr: 2, height: '26px', mt: '2px', borderRight: activeId === shot.id ? '1px solid #FFB800' : '0px', background: activeId === shot.id ? '#2E2E2E' : null }} color='primary' onClick={handleOpenClick}>
     <DeleteShotDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} deleteShot={deleteShot}/>
       <MovieIcon sx={{width: '15px', mr: '7px', color: '#FFEBB7'}} />
-      <ListItemText primary={shot.name} primaryTypographyProps={{ color: 'primary'}}/>
+      <ListItemText primary={shot.name} primaryTypographyProps={{ color: 'primary',  noWrap: true}}/>
       {activeId === shot.id && 
         <>
           <IconButton

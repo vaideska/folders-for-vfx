@@ -56,6 +56,7 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
 
   const deleteShot = () => {
     foldersStore.removeFolder(folder);
+    setActiveId(null);
   }
 
   const handleOpenAddDialogClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -84,7 +85,7 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
           </IconButton>
           }
         <FolderIcon sx={{width: '15px', mr: '7px', color: '#FFEBB7'}} />
-        <ListItemText primary={folder.name} primaryTypographyProps={{ color: 'primary'}} />
+        <ListItemText primary={folder.name} primaryTypographyProps={{ color: 'primary', noWrap: true }}  />
           {activeId === folder.id && 
             <>
               <IconButton
