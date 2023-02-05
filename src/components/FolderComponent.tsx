@@ -72,8 +72,8 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
   return (
     <Box>
       <AddShotDialog open={openAddDialog} setOpen={setOpenAddDialog} addShot={addShot} />
-      <DeleteShotDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} deleteShot={deleteShot}/>
-      <ListItemButton onClick={handleActiveClick} sx={{height: '26px',  pl: folder.parentId ? 2 : 0, pr: 2, borderRight: activeId === folder.id ? '1px solid #FFB800' : '0px', background: activeId === folder.id ? '#2E2E2E' : null }}>
+      <DeleteShotDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} deleteShot={deleteShot} folder={folder}/>
+      <ListItemButton onClick={handleActiveClick} sx={{height: '26px',  pl: folder.parentId ? 2 : 0, pr: '10px', borderRight: activeId === folder.id ? '1px solid #FFB800' : '0px', background: activeId === folder.id ? '#2E2E2E' : null }}>
         {open
           ? 
           <IconButton sx={{pr: '3px' }} aria-label="close" color="secondary" onClick={handleToggleFolderClick}>
@@ -91,7 +91,7 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
               <IconButton
                 aria-label="add"
                 color="secondary"
-                sx={{pr: '9px'}}
+                sx={{padding: '4px'}}
                 onClick={handleOpenAddDialogClick}
               >
                 <AddBoxIcon sx={{width: '11px'}} />
@@ -99,7 +99,7 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
               <IconButton
                 aria-label="delete"
                 color="secondary"
-                sx={{padding: 0}}
+                sx={{padding: '4px' }}
                 onClick={handleOpenDeleteDialogClick}
               >
                 <DeleteIcon sx={{width: '11px'}}  />
