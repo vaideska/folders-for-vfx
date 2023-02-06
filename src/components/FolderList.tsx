@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { Box, List } from '@mui/material';
 
-import List from '@mui/material/List';
 import FolderComponent from './FolderComponent';
 import ShotComponent from './ShotComponent';
 import foldersStore from '../store/folders';
-import { observer } from 'mobx-react-lite';
-import { Box } from '@mui/material';
 
 const FolderList = observer(() => {
   const [activeId, setActiveId] = useState<null | string>(null);
@@ -18,7 +17,7 @@ const FolderList = observer(() => {
       {foldersStore.level1.map(folder => {
         return (
           <FolderComponent
-            key={folder.id} 
+            key={folder.id}
             folder={folder} 
             parentId={folder.id} 
             activeId={activeId} 

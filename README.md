@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Тестовое задание
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Необходимо написать сайт на React js (backend реализовывать не нужно). Макет figma находится по ссылке:
+https://www.figma.com/file/6z2L0FqQRHMbRbrIpOKFhd/CJ-TEST
 
-## Available Scripts
+# Стек:
+- React
+- TypeScript
+- MUI
+- Mobx
 
-In the project directory, you can run:
+## Установка:
+В корне проекта:
 
-### `npm start`
+`npm install`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`npm start`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Логика, которая не раскрыта в дизайне и я предположила:
 
-### `npm test`
+1) Есть понятие открытой/закрытой папки, а так же "Активной" папки/шота. Предполагаю, что когда выбрана папка/шот - справа отображается какой-то контент.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2) При нажатии на папку - она становится Активной и раскрывается. Если нажимаем не на активную раскрытую папку, то она не закрывается, а становится активной.
 
-### `npm run build`
+3) Нажатие именно на "стрелочки" контролирует открытие/закрытие, но не активность. Предположила, что в фигме ошибка - папка ASSETS открыта (видим вложенную структуру), но стрелочка относится к "закрытому" состоянию.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4) Папки это некая навигация - у нее своя полоса прокрутки при переполнении контента (стилизовать прокрутку не успела).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+6) Есть две сущности - папки и шоты. Максимальная вложенность 3. Предположила что на 1 и 2 уровне создаются только "папки", на третьем "шоты". Вплывающие окна говорят об удалении папок и о добавлении шотов - как будто речь идет только о кнопках на втором уровне. Но я была не уверена, поэтому реализовала еще добавление папок под 1 уровнем, и удаление шотов.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+# Технические решения и что надо улучшить (не успела :\):
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1) Попробовала несколько структур для данных папок. Остановилась на плоской структуре аля получаю данные из реляционной бд.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2) Из-за сильной связанности вложенности при добавлении/удалении весь список папок перерисовывается. Тут наверное не хватило опыта сообразить как реализовать, чтобы не допускать перерисовок. Возможно как раз саму структуру разбить на "уровни", чтобы были разные стейты.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3) Не лучший вариант использования кастомной стилизации, думаю можно было бы попробовать избавиться от всех sx, больше перенести в theme. Поправить hover у кнопок. Из-за непривычки использования mui есть места, где нарущена семантика тегов.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+4) В целом стоит провести декомпозицию и выделить больше компонентов (ui и общие контейнеры).

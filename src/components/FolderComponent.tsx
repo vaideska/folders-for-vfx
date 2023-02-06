@@ -1,22 +1,24 @@
-import React from 'react';
-
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
+import React, { useCallback, FC } from 'react';
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  Collapse,
+  IconButton
+} from '@mui/material';
 
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FolderIcon from '@mui/icons-material/Folder';
+
 import foldersStore from '../store/folders';
-import AddShotDialog from './AddShotDialog';
-import DeleteShotDialog from './DeleteShotDialog';
+import AddShotDialog from './AddFolderDialog';
+import DeleteShotDialog from './DeleteFolderDialog';
 
 import { IFolder } from '../types/types';
-import { Box } from '@mui/material';
 
 type FolderComponentProps = {
   folder: IFolder;
@@ -26,38 +28,38 @@ type FolderComponentProps = {
   setActiveId: (id: string | null) => void;
 }
 
-const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: FolderComponentProps) => {
+const FolderComponent: FC<FolderComponentProps>  = ({ folder, children, parentId, activeId, setActiveId }) => {
   const [open, setOpen] = React.useState(false);
   const [openAddDialog, setOpenAddDialog] = React.useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
 
-  const handleToggleFolderClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    setOpen(!open);
-  };
-
-  const handleActiveClick = () => {
-    if (open && folder.id !== activeId) {
-      setActiveId(folder.id);
-      return;
-    }
-    setActiveId(folder.id);
-    setOpen(!open);
-  }
-
-  const addShot = (name: string) => {
+  const addFolder = useCallback((name: string) => {
     setOpen(true);
     foldersStore.addFolder({
       id: String(Date.now()),
       name,
       parentId: parentId,
     });
-  }
+  }, [parentId]);
 
-  const deleteShot = () => {
+  const deleteFolder = useCallback(() => {
     foldersStore.removeFolder(folder);
     setActiveId(null);
-  }
+  }, [folder, setActiveId]);
+
+  const handleToggleFolderClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setOpen(!open);
+  };
+
+  const handleActiveClick = useCallback(() => {
+    if (open && folder.id !== activeId) {
+      setActiveId(folder.id);
+      return;
+    }
+    setActiveId(folder.id);
+    setOpen(!open);
+  }, [activeId, folder.id, open, setActiveId]);
 
   const handleOpenAddDialogClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -71,21 +73,39 @@ const FolderComponent = ({ folder, children, parentId, activeId, setActiveId }: 
 
   return (
     <Box>
-      <AddShotDialog open={openAddDialog} setOpen={setOpenAddDialog} addShot={addShot} />
-      <DeleteShotDialog open={openDeleteDialog} setOpen={setOpenDeleteDialog} deleteShot={deleteShot} folder={folder}/>
+      <AddShotDialog open={openAddDialog} setOpen={setOpenAddDialog} addFolder={addFolder} />
+      <DeleteShotDialog
+        open={openDeleteDialog}
+        setOpen={setOpenDeleteDialog}
+        deleteFolder={deleteFolder}
+        folder={folder}
+      />
       <ListItemButton onClick={handleActiveClick} sx={{height: '26px',  pl: folder.parentId ? 2 : 0, pr: '10px', borderRight: activeId === folder.id ? '1px solid #FFB800' : '0px', background: activeId === folder.id ? '#2E2E2E' : null }}>
         {open
           ? 
-          <IconButton sx={{pr: '3px' }} aria-label="close" color="secondary" onClick={handleToggleFolderClick}>
+          <IconButton
+            sx={{pr: '3px' }}
+            aria-label="close"
+            color="secondary"
+            onClick={handleToggleFolderClick}
+          >
             <KeyboardArrowDownIcon  sx={{width: '11px'}} />
           </IconButton>
           :
-          <IconButton sx={{pr: '3px' }} aria-label="open" color="secondary" onClick={handleToggleFolderClick}>
+          <IconButton
+            sx={{pr: '3px' }}
+            aria-label="open"
+            color="secondary"
+            onClick={handleToggleFolderClick}
+          >
             <KeyboardArrowRightIcon sx={{width: '11px'}}  />
           </IconButton>
           }
         <FolderIcon sx={{width: '15px', mr: '7px', color: '#FFEBB7'}} />
-        <ListItemText primary={folder.name} primaryTypographyProps={{ color: 'primary', noWrap: true }}  />
+        <ListItemText
+          primary={folder.name}
+          primaryTypographyProps={{ color: 'primary', noWrap: true }}
+        />
           {activeId === folder.id && 
             <>
               <IconButton
